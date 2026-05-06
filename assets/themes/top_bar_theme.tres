@@ -1,0 +1,18 @@
+[gd_resource type="Theme" format=3 uid="uid://c2cuyje5w4tk2"]
+
+[ext_resource type="StyleBox" uid="uid://crlnvjxsbay6u" path="res://assets/textures/top_bar_texture_focus.tres" id="1_1ppqe"]
+[ext_resource type="StyleBox" uid="uid://c2h1ka563em3d" path="res://assets/textures/top_bar_texture_hover.tres" id="2_suqps"]
+[ext_resource type="FontFile" uid="uid://07ytmxidg2j1" path="res://assets/Playpen_Sans/PlaypenSans-VariableFont_wght.ttf" id="3_f0ijy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_04ixm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oy1e8"]
+
+[resource]
+default_font = ExtResource("3_f0ijy")
+default_font_size = 18
+Button/styles/disabled = SubResource("StyleBoxEmpty_04ixm")
+Button/styles/focus = ExtResource("1_1ppqe")
+Button/styles/hover = ExtResource("2_suqps")
+Button/styles/normal = SubResource("StyleBoxEmpty_oy1e8")
+Button/styles/pressed = ExtResource("1_1ppqe")

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://nws0a0ssy0oo"]
+
+[ext_resource type="PackedScene" uid="uid://bqlwm5b375hea" path="res://src/scenes/TitleBar.tscn" id="1_x4os5"]
+
+[sub_resource type="Gradient" id="Gradient_1vaol"]
+offsets = PackedFloat32Array(0, 0.9939759, 1)
+colors = PackedColorArray(1, 0.7019608, 1, 1, 0.7069927, 0.98384124, 1, 1, 0.6901961, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rm437"]
+gradient = SubResource("Gradient_1vaol")
+width = 60
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[node name="ProjectWindow" type="Node2D" unique_id=1977189057]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=628825081]
+
+[node name="Background" type="TextureRect" parent="CanvasLayer" unique_id=1568132317]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+texture = SubResource("GradientTexture2D_rm437")
+
+[node name="TitleBar" parent="CanvasLayer" unique_id=2011153432 instance=ExtResource("1_x4os5")]
+offset_right = 2750.0

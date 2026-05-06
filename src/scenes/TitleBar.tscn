@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bqlwm5b375hea"]
+
+[ext_resource type="Theme" uid="uid://c86h0x0p8hkl2" path="res://assets/themes/title_bar_background_theme.tres" id="1_4mkor"]
+[ext_resource type="Theme" uid="uid://cu6okb1yng20v" path="res://assets/themes/hbox_theme.tres" id="1_08wis"]
+[ext_resource type="Theme" uid="uid://c2cuyje5w4tk2" path="res://assets/themes/top_bar_theme.tres" id="2_4mkor"]
+[ext_resource type="Script" uid="uid://dklo35ntk812r" path="res://src/scenes/TitleBar.gd" id="2_6hugk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hac1t"]
+
+[node name="TitleBar" type="Panel" unique_id=2011153432]
+offset_right = 1280.0
+offset_bottom = 35.0
+size_flags_horizontal = 0
+theme = ExtResource("1_4mkor")
+script = ExtResource("2_6hugk")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=18827990]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.055555556
+offset_bottom = 33.055557
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hac1t")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=469446674]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=915186474]
+layout_mode = 2
+theme = ExtResource("1_08wis")
+
+[node name="NewButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1551020272]
+layout_mode = 2
+theme = ExtResource("2_4mkor")
+text = "New"
+
+[node name="OpenButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1930770595]
+layout_mode = 2
+theme = ExtResource("2_4mkor")
+text = "Open"
