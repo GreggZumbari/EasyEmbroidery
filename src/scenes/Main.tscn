@@ -26,4 +26,3 @@ size_flags_vertical = 4
 texture = SubResource("GradientTexture2D_rm437")
 
 [node name="TitleBar" parent="CanvasLayer" unique_id=2011153432 instance=ExtResource("1_x4os5")]
-offset_right = 2750.0
