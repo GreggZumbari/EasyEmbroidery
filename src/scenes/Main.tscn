@@ -30,6 +30,4 @@ grow_vertical = 2
 size_flags_vertical = 4
 texture = SubResource("GradientTexture2D_x4os5")
 
-[node name="TitleBar" parent="." unique_id=2011153432 instance=ExtResource("1_x4os5")]
-layout_mode = 1
-script = null
+[node name="TitleBar" parent="CanvasLayer" unique_id=2011153432 instance=ExtResource("1_x4os5")]
