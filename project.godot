@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="EasyEmbroidery"
-run/main_scene="uid://nws0a0ssy0oo"
+run/main_scene="uid://dsoop8cl26wvn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
