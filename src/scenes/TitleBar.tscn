@@ -8,22 +8,21 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hac1t"]
 
 [node name="TitleBar" type="Panel" unique_id=2011153432]
-custom_minimum_size = Vector2(0, 35)
+custom_minimum_size = Vector2(0, 32)
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.049000002
-offset_bottom = -0.2800026
+offset_bottom = -3.2800026
 size_flags_horizontal = 0
 theme = ExtResource("1_4mkor")
 script = ExtResource("2_6hugk")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=18827990]
-custom_minimum_size = Vector2(0, 35)
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.055555556
-offset_bottom = 33.055557
+offset_bottom = 30.222221
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hac1t")
@@ -37,15 +36,16 @@ theme_override_constants/margin_right = 0
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=915186474]
 layout_mode = 2
 theme = ExtResource("1_08wis")
+alignment = 1
 
 [node name="NewButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1551020272]
-custom_minimum_size = Vector2(38, 35)
+custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 theme = ExtResource("2_4mkor")
 text = "New"
 
 [node name="OpenButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1930770595]
-custom_minimum_size = Vector2(38, 35)
+custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 theme = ExtResource("2_4mkor")
 text = "Open"
