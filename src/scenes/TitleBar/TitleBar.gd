@@ -14,4 +14,4 @@ func _process(delta: float) -> void:
 	
 # Called when NewButton is pressed. Creates a new project.
 func _new_button_pressed() -> void:
-	pass
+	get_tree().change_scene_to_file("res://src/scenes/NewProjectPopup/NewProject.tscn")

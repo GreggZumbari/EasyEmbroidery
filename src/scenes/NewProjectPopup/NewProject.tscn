@@ -1,5 +1,62 @@
 [gd_scene format=3 uid="uid://ck7drcllc8bqe"]
 
+[ext_resource type="Script" uid="uid://bh43lxwcjoan8" path="res://src/scenes/NewProjectPopup/ImportImage.gd" id="1_cemf2"]
+[ext_resource type="Theme" uid="uid://c2cuyje5w4tk2" path="res://assets/themes/top_bar_theme.tres" id="2_jm78g"]
+
+[sub_resource type="Gradient" id="Gradient_xc2u5"]
+colors = PackedColorArray(0.18717614, 0.18717614, 0.18717614, 1, 0.1882353, 0.1882353, 0.1882353, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cemf2"]
+gradient = SubResource("Gradient_xc2u5")
+
 [node name="NewProject" type="Control" unique_id=1641211482]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1280.0
+offset_bottom = -720.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cemf2")
+
+[node name="Background" type="TextureRect" parent="." unique_id=378728629]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = SubResource("GradientTexture2D_cemf2")
+
+[node name="ImportedImage" type="TextureRect" parent="." unique_id=572318799]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 352.0
+offset_top = 35.0
+offset_right = 961.0
+offset_bottom = 644.0
+grow_horizontal = 2
+
+[node name="Instructions" type="RichTextLabel" parent="." unique_id=1885561597]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 133.0
+offset_right = 299.0
+offset_bottom = 547.0
+theme_override_font_sizes/normal_font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoadButton" type="Button" parent="." unique_id=1497589945]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 0
+offset_left = 568.0
+offset_top = 664.0
+offset_right = 750.0
+offset_bottom = 706.0
+theme = ExtResource("2_jm78g")
+theme_override_font_sizes/font_size = 27
+text = "Load Image"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=2099800457]
+oversampling_override = 1.0
