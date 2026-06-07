@@ -1,9 +1,10 @@
 extends Control
 
 @onready var file_dialog: FileDialog = $FileDialog
-@onready var load_button: Button = $LoadButton
+@onready var load_button: Button = $"CroppedImage/Bottom Edge/LoadButton"
 @onready var image_rect: TextureRect = $CroppedImage/ImportedImage
 
+var clicked: bool = false
 var hovering: bool = false
 var holding: bool = false
 var last_click_position: Vector2 = Vector2.ZERO
@@ -26,7 +27,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	# If the user is holding down LMB on the image
-	if Input.is_mouse_button_pressed(1) and (hovering or holding):
+	if clicked and (hovering or holding):
 		# Let the user drag the image around
 		var click_position: Vector2 = get_global_mouse_position()
 		if not holding:
@@ -38,10 +39,38 @@ func _process(_delta: float) -> void:
 		last_click_position = click_position
 	else:
 		holding = false
+#/Users/Greggory Hickman/Desktop/Borderlands Collecter's Vault 2.0-1
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		# Detect LMB clicks and unclicks
+		if event.button_index == 1 and event.pressed:
+			clicked = true
+		elif event.button_index == 1 and not event.pressed:
+			clicked = false
+		
+		# Detect and handle scroll wheel usage
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+			# Zoom in towards the cursor
+			var mouse_position: Vector2 = get_global_mouse_position()
+			var old_scale = image_rect.scale
+			image_rect.scale *= 1.1
+			var scale_ratio = image_rect.scale.x / old_scale.x
+			image_rect.position = mouse_position - (mouse_position - image_rect.position) * scale_ratio
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+			# Zoom out from the cursor
+			var mouse_position: Vector2 = get_global_mouse_position()
+			var old_scale = image_rect.scale
+			image_rect.scale *= 0.9
+			var scale_ratio = image_rect.scale.x / old_scale.x
+			image_rect.position = mouse_position - (mouse_position - image_rect.position) * scale_ratio
+			
+			
 
 # Called when the user starts a new project
 func _on_load_pressed() -> void:
 	# Show the file explorer for the user to select their image
+	file_dialog.current_dir = "C:/"
 	file_dialog.popup_centered()
 
 # Called when the user selects their file
