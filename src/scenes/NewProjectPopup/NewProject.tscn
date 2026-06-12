@@ -3,11 +3,13 @@
 [ext_resource type="Script" uid="uid://bh43lxwcjoan8" path="res://src/scenes/NewProjectPopup/ImportImage.gd" id="1_cemf2"]
 [ext_resource type="Texture2D" uid="uid://cnchn8o6v4t5x" path="res://assets/textures/grey_background.tres" id="2_58ieo"]
 [ext_resource type="Theme" uid="uid://c2cuyje5w4tk2" path="res://assets/themes/top_bar_theme.tres" id="2_jm78g"]
+[ext_resource type="Theme" uid="uid://djcfl13obxykd" path="res://assets/textures/hboxcontainer.tres" id="3_4uhc8"]
+[ext_resource type="Texture2D" uid="uid://denkfx7sbibei" path="res://assets/textures/selection_circle.png" id="3_a1avp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_58ieo"]
 size = Vector2(624, 624)
 
-[node name="NewProject" type="Control" unique_id=1641211482]
+[node name="CroppedImage" type="Control" unique_id=2098747802]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,33 +27,46 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_58ieo")
 
-[node name="CroppedImage" type="Control" parent="." unique_id=2098747802]
-layout_mode = 1
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="ImageArea" type="Area2D" parent="." unique_id=2135994243]
+position = Vector2(641, 344)
 
-[node name="ImageArea" type="Area2D" parent="CroppedImage" unique_id=2135994243]
-position = Vector2(640, 344)
-
-[node name="ImageAreaBounds" type="CollisionShape2D" parent="CroppedImage/ImageArea" unique_id=1054172234]
+[node name="ImageAreaBounds" type="CollisionShape2D" parent="ImageArea" unique_id=1054172234]
 shape = SubResource("RectangleShape2D_58ieo")
 
-[node name="ImportedImage" type="TextureRect" parent="CroppedImage" unique_id=572318799]
+[node name="ImportedImage" type="TextureRect" parent="." unique_id=572318799]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.256
 anchor_top = 0.044000003
 anchor_right = 0.744
 anchor_bottom = 0.9110001
-offset_left = 0.3199768
-offset_top = 0.3199978
-offset_right = -0.32000732
-offset_bottom = 0.079956055
+offset_left = 3.3199768
+offset_top = 2.3199978
+offset_right = -1.3200073
+offset_bottom = -1.920044
 grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 3
 
-[node name="Left Edge" type="TextureRect" parent="CroppedImage" unique_id=50309211]
+[node name="SelectionCircle" type="TextureRect" parent="." unique_id=571200877]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.257
+anchor_top = 0.044000003
+anchor_right = 0.74500006
+anchor_bottom = 0.90700006
+offset_left = 0.040008545
+offset_top = 0.3199978
+offset_right = -0.60009766
+offset_bottom = 2.959961
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_a1avp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LeftEdge" type="TextureRect" parent="." unique_id=50309211]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.256
@@ -60,7 +75,7 @@ offset_right = 0.3199768
 grow_vertical = 2
 texture = ExtResource("2_58ieo")
 
-[node name="Instructions" type="RichTextLabel" parent="CroppedImage/Left Edge" unique_id=1885561597]
+[node name="Instructions" type="RichTextLabel" parent="LeftEdge" unique_id=1885561597]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.067
@@ -75,7 +90,7 @@ theme_override_font_sizes/normal_font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Right Edge" type="TextureRect" parent="CroppedImage" unique_id=193502392]
+[node name="RightEdge" type="TextureRect" parent="." unique_id=193502392]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.74500006
@@ -87,7 +102,7 @@ grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("2_58ieo")
 
-[node name="Top Edge" type="TextureRect" parent="CroppedImage" unique_id=1271457482]
+[node name="TopEdge" type="TextureRect" parent="." unique_id=1271457482]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -97,7 +112,7 @@ offset_bottom = 0.3199978
 grow_horizontal = 2
 texture = ExtResource("2_58ieo")
 
-[node name="Bottom Edge" type="TextureRect" parent="CroppedImage" unique_id=550332638]
+[node name="BottomEdge" type="TextureRect" parent="." unique_id=550332638]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -108,21 +123,33 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("2_58ieo")
 
-[node name="LoadButton" type="Button" parent="CroppedImage/Bottom Edge" unique_id=1497589945]
-custom_minimum_size = Vector2(48, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomEdge" unique_id=239571295]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.43
-anchor_top = 0.172
-anchor_right = 0.57000005
-anchor_bottom = 0.82800007
-offset_left = -0.4000244
-offset_top = -0.008000374
-offset_right = 0.39990234
-offset_bottom = 0.0079956055
+anchor_left = 0.266
+anchor_top = 0.109000005
+anchor_right = 0.744
+anchor_bottom = 0.87500006
+offset_left = -0.480011
+offset_top = 0.023999691
+offset_right = -0.32000732
+theme = ExtResource("3_4uhc8")
+alignment = 1
+
+[node name="LoadButton" type="Button" parent="BottomEdge/HBoxContainer" unique_id=1497589945]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
 theme = ExtResource("2_jm78g")
 theme_override_font_sizes/font_size = 27
-text = "Load Image"
+text = "Load"
+
+[node name="ConfirmButton" type="Button" parent="BottomEdge/HBoxContainer" unique_id=1441321796]
+visible = false
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("2_jm78g")
+theme_override_font_sizes/font_size = 27
+text = "Confirm"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=2099800457]
 oversampling_override = 1.0

@@ -1,19 +1,20 @@
 [gd_scene format=3 uid="uid://bqlwm5b375hea"]
 
 [ext_resource type="Theme" uid="uid://c86h0x0p8hkl2" path="res://assets/themes/title_bar_background_theme.tres" id="1_4mkor"]
-[ext_resource type="Theme" uid="uid://cu6okb1yng20v" path="res://assets/themes/hbox_theme.tres" id="1_08wis"]
 [ext_resource type="Theme" uid="uid://c2cuyje5w4tk2" path="res://assets/themes/top_bar_theme.tres" id="2_4mkor"]
 [ext_resource type="Script" uid="uid://dklo35ntk812r" path="res://src/scenes/TitleBar/TitleBar.gd" id="2_6hugk"]
+[ext_resource type="Theme" uid="uid://djcfl13obxykd" path="res://assets/textures/hboxcontainer.tres" id="3_dk2op"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hac1t"]
 
 [node name="TitleBar" type="Panel" unique_id=2011153432]
 custom_minimum_size = Vector2(0, 32)
-anchors_preset = -1
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 0.049000002
-offset_bottom = -3.2800026
-size_flags_horizontal = 0
+offset_bottom = 32.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
 theme = ExtResource("1_4mkor")
 script = ExtResource("2_6hugk")
 
@@ -30,12 +31,12 @@ metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=469446674]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 0
+theme_override_constants/margin_left = 440
+theme_override_constants/margin_right = 440
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=915186474]
 layout_mode = 2
-theme = ExtResource("1_08wis")
+theme = ExtResource("3_dk2op")
 alignment = 1
 
 [node name="NewButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1551020272]

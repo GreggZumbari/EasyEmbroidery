@@ -1,8 +1,10 @@
 extends Control
 
 @onready var file_dialog: FileDialog = $FileDialog
-@onready var load_button: Button = $"CroppedImage/Bottom Edge/LoadButton"
-@onready var image_rect: TextureRect = $CroppedImage/ImportedImage
+@onready var load_button: Button = $BottomEdge/HBoxContainer/LoadButton
+@onready var confirm_button: Button = $BottomEdge/HBoxContainer/ConfirmButton
+@onready var image_rect: TextureRect = $ImportedImage
+@onready var selection_circle: TextureRect = $SelectionCircle
 
 var clicked: bool = false
 var hovering: bool = false
@@ -14,8 +16,11 @@ func _ready() -> void:
 	# Connect signals
 	file_dialog.file_selected.connect(_on_file_selected)
 	load_button.pressed.connect(_on_load_pressed)
+	confirm_button.pressed.connect(_on_confirm_pressed)
 	image_rect.mouse_entered.connect(_on_mouse_enter_image)
 	image_rect.mouse_exited.connect(_on_mouse_exit_image)
+	selection_circle.mouse_entered.connect(_on_mouse_enter_image)
+	selection_circle.mouse_exited.connect(_on_mouse_exit_image)
 	
 	# Configure the FileDialog object
 	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
@@ -64,18 +69,11 @@ func _input(event: InputEvent) -> void:
 			image_rect.scale *= 0.9
 			var scale_ratio = image_rect.scale.x / old_scale.x
 			image_rect.position = mouse_position - (mouse_position - image_rect.position) * scale_ratio
-			
-			
-
-# Called when the user starts a new project
-func _on_load_pressed() -> void:
-	# Show the file explorer for the user to select their image
-	file_dialog.current_dir = "C:/"
-	file_dialog.popup_centered()
 
 # Called when the user selects their file
 func _on_file_selected(path: String) -> void:
-	var instructions: RichTextLabel = $Instructions
+	var instructions: RichTextLabel = $LeftEdge/Instructions
+	var selection_circle: TextureRect = $SelectionCircle
 	
 	# Get the image from the path
 	var image = Image.new()
@@ -85,8 +83,29 @@ func _on_file_selected(path: String) -> void:
 		# Show the image on the UI
 		var texture = ImageTexture.create_from_image(image)
 		image_rect.texture = texture
+		
+		# Show instructions
+		instructions.text = "Please move the desired part of the image into the circle and then press \"Confirm\""
+		
+		# Show the confirm button and selection circle
+		confirm_button.visible = true
+		selection_circle.visible = true
 	else:
 		instructions.text = "Error loading image. Please try again."
+		
+		# Hide the confirm button and selection circle
+		confirm_button.visible = false
+		selection_circle.visible = false
+		
+# Called when the user starts a new project
+func _on_load_pressed() -> void:
+	# Show the file explorer for the user to select their image
+	file_dialog.current_dir = "C:/"
+	file_dialog.popup_centered()
+	
+# Called when the user confirms their selected image
+func _on_confirm_pressed() -> void:
+	get_tree().change_scene_to_file("res://src/scenes/NewProjectPopup/NewProject.tscn")
 		
 # Called when the user starts a new project
 func _on_mouse_enter_image() -> void:
