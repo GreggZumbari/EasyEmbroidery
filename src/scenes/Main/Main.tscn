@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dsoop8cl26wvn"]
 
+[ext_resource type="Script" uid="uid://1x8dngv3mu1d" path="res://src/scenes/Main/main.gd" id="1_3ioa8"]
 [ext_resource type="PackedScene" uid="uid://bqlwm5b375hea" path="res://src/scenes/TitleBar/TitleBar.tscn" id="1_mqhj8"]
 
 [sub_resource type="Gradient" id="Gradient_1vaol"]
@@ -12,6 +13,8 @@ width = 60
 fill_from = Vector2(0, 1)
 fill_to = Vector2(0, 0)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_5llug"]
+
 [node name="Main" type="Control" unique_id=2071483891]
 layout_mode = 3
 anchors_preset = 15
@@ -19,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3ioa8")
 
 [node name="Background" type="TextureRect" parent="." unique_id=549608112]
 layout_mode = 1
@@ -32,3 +36,19 @@ texture = SubResource("GradientTexture2D_x4os5")
 
 [node name="TitleBar" parent="." unique_id=2011153432 instance=ExtResource("1_mqhj8")]
 layout_mode = 1
+
+[node name="ProjectImage" type="TextureRect" parent="." unique_id=1075619911]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.256
+anchor_top = 0.044000003
+anchor_right = 0.744
+anchor_bottom = 0.9110001
+offset_left = 3.3199768
+offset_top = 2.3199978
+offset_right = -1.3200073
+offset_bottom = -1.920044
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_5llug")
+stretch_mode = 3

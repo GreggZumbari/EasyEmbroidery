@@ -73,7 +73,6 @@ func _input(event: InputEvent) -> void:
 # Called when the user selects their file
 func _on_file_selected(path: String) -> void:
 	var instructions: RichTextLabel = $LeftEdge/Instructions
-	var selection_circle: TextureRect = $SelectionCircle
 	
 	# Get the image from the path
 	var image = Image.new()
@@ -105,7 +104,26 @@ func _on_load_pressed() -> void:
 	
 # Called when the user confirms their selected image
 func _on_confirm_pressed() -> void:
-	get_tree().change_scene_to_file("res://src/scenes/NewProjectPopup/NewProject.tscn")
+	# Get the image
+	var image: Image = image_rect.texture.get_image()
+	
+	# Get the crop rectangle
+	var rect: CollisionShape2D = $ImageArea/ImageAreaBounds
+	var rect_size = Vector2i(rect.shape.size)
+	var rect_pos = Vector2i(rect.global_position - rect.shape.size / 2)
+
+	var crop_rect: Rect2i = Rect2i(rect_pos, rect_size)
+	
+	# Crop the image
+	var cropped_image: Image = ImageEditor.crop_image(image, crop_rect)
+	
+	# Change scene, passing the cropped image into it
+	var scene = preload("res://src/scenes/Main/Main.tscn").instantiate()
+	scene.image = cropped_image
+
+	get_tree().root.add_child(scene)
+	get_tree().current_scene.queue_free()
+	get_tree().current_scene = scene
 		
 # Called when the user starts a new project
 func _on_mouse_enter_image() -> void:

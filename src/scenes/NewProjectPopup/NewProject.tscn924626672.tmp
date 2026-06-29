@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ck7drcllc8bqe"]
 
-[ext_resource type="Script" uid="uid://bh43lxwcjoan8" path="res://src/scenes/NewProjectPopup/newProject.gd" id="1_cemf2"]
+[ext_resource type="Script" uid="uid://bh43lxwcjoan8" path="res://src/scenes/NewProjectPopup/ImportImage.gd" id="1_cemf2"]
 [ext_resource type="Texture2D" uid="uid://cnchn8o6v4t5x" path="res://assets/textures/grey_background.tres" id="2_58ieo"]
 [ext_resource type="Theme" uid="uid://c2cuyje5w4tk2" path="res://assets/themes/top_bar_theme.tres" id="2_jm78g"]
 [ext_resource type="Theme" uid="uid://djcfl13obxykd" path="res://assets/textures/hboxcontainer.tres" id="3_4uhc8"]
@@ -11,7 +11,7 @@ size = Vector2(624, 624)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_a1avp"]
 
-[node name="NewProject" type="Control" unique_id=2098747802]
+[node name="CroppedImage" type="Control" unique_id=2098747802]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
