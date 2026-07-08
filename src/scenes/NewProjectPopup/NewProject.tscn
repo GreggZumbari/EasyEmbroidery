@@ -6,11 +6,6 @@
 [ext_resource type="Theme" uid="uid://djcfl13obxykd" path="res://assets/textures/hboxcontainer.tres" id="3_4uhc8"]
 [ext_resource type="Texture2D" uid="uid://denkfx7sbibei" path="res://assets/textures/selection_circle.png" id="3_a1avp"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_58ieo"]
-size = Vector2(624, 624)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_a1avp"]
-
 [node name="NewProject" type="Control" unique_id=2098747802]
 layout_mode = 3
 anchors_preset = 15
@@ -29,12 +24,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_58ieo")
 
-[node name="ImageArea" type="Area2D" parent="." unique_id=2135994243]
-position = Vector2(641, 344)
-
-[node name="ImageAreaBounds" type="CollisionShape2D" parent="ImageArea" unique_id=1054172234]
-shape = SubResource("RectangleShape2D_58ieo")
-
 [node name="ImportedImage" type="TextureRect" parent="." unique_id=572318799]
 layout_mode = 1
 anchors_preset = -1
@@ -48,7 +37,6 @@ offset_right = -1.3200073
 offset_bottom = -1.920044
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("CanvasTexture_a1avp")
 stretch_mode = 3
 
 [node name="SelectionCircle" type="TextureRect" parent="." unique_id=571200877]
@@ -69,6 +57,23 @@ texture = ExtResource("3_a1avp")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="Text1" type="RichTextLabel" parent="." unique_id=499408888]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.273
+anchor_top = 0.072000004
+anchor_right = 0.72700006
+anchor_bottom = 0.88100004
+offset_left = 0.55999756
+offset_top = 0.15999603
+offset_right = -0.5600586
+offset_bottom = -0.32000732
+theme_override_font_sizes/normal_font_size = 30
+text = "Drag and Drop an Image Here or 
+Click to Choose a File"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="LeftEdge" type="TextureRect" parent="." unique_id=50309211]
 layout_mode = 1
 anchors_preset = -1
@@ -78,7 +83,7 @@ offset_right = 0.3199768
 grow_vertical = 2
 texture = ExtResource("2_58ieo")
 
-[node name="Instructions" type="RichTextLabel" parent="LeftEdge" unique_id=1885561597]
+[node name="Text2" type="RichTextLabel" parent="LeftEdge" unique_id=1885561597]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.067
@@ -114,6 +119,7 @@ offset_top = -32.0
 offset_bottom = 0.3199978
 grow_horizontal = 2
 texture = ExtResource("2_58ieo")
+expand_mode = 2
 
 [node name="BottomEdge" type="TextureRect" parent="." unique_id=550332638]
 layout_mode = 1

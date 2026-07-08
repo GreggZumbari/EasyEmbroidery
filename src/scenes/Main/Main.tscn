@@ -13,8 +13,6 @@ width = 60
 fill_from = Vector2(0, 1)
 fill_to = Vector2(0, 0)
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_5llug"]
-
 [node name="Main" type="Control" unique_id=2071483891]
 layout_mode = 3
 anchors_preset = 15
@@ -50,5 +48,5 @@ offset_right = -1.3200073
 offset_bottom = -1.920044
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("CanvasTexture_5llug")
-stretch_mode = 3
+expand_mode = 1
+stretch_mode = 6

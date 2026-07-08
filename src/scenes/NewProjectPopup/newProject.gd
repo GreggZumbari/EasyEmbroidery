@@ -9,6 +9,7 @@ extends Control
 var clicked: bool = false
 var hovering: bool = false
 var holding: bool = false
+var is_image: bool = false
 var last_click_position: Vector2 = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
@@ -21,13 +22,11 @@ func _ready() -> void:
 	image_rect.mouse_exited.connect(_on_mouse_exit_image)
 	selection_circle.mouse_entered.connect(_on_mouse_enter_image)
 	selection_circle.mouse_exited.connect(_on_mouse_exit_image)
+	get_window().files_dropped.connect(_on_files_dropped)
 	
 	# Configure the FileDialog object
 	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
-	
-	# Try to load an image right away
-	_on_load_pressed()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -46,6 +45,16 @@ func _process(_delta: float) -> void:
 		holding = false
 #/Users/Greggory Hickman/Desktop/Borderlands Collecter's Vault 2.0-1
 
+func _on_files_dropped(files: PackedStringArray) -> void:
+	var text2: RichTextLabel = $LeftEdge/Text2
+	if len(files) == 1:
+		_on_file_selected(files[0])
+	elif len(files) == 0:
+		text2.text = "Error: file doesn't exist. Please try again."
+	else:
+		text2.text = "Error: more than one file imported. Please import only one file."
+
+# Called when there is a user input from keyboard or mouse
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		# Detect LMB clicks and unclicks
@@ -55,24 +64,26 @@ func _input(event: InputEvent) -> void:
 			clicked = false
 		
 		# Detect and handle scroll wheel usage
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
-			# Zoom in towards the cursor
-			var mouse_position: Vector2 = get_global_mouse_position()
-			var old_scale = image_rect.scale
-			image_rect.scale *= 1.1
-			var scale_ratio = image_rect.scale.x / old_scale.x
-			image_rect.position = mouse_position - (mouse_position - image_rect.position) * scale_ratio
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
-			# Zoom out from the cursor
-			var mouse_position: Vector2 = get_global_mouse_position()
-			var old_scale = image_rect.scale
-			image_rect.scale *= 0.9
-			var scale_ratio = image_rect.scale.x / old_scale.x
-			image_rect.position = mouse_position - (mouse_position - image_rect.position) * scale_ratio
+		if is_image:
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+				# Zoom in towards the cursor
+				var mouse_position: Vector2 = get_global_mouse_position()
+				var old_scale = image_rect.scale
+				image_rect.scale *= 1.1
+				var scale_ratio = image_rect.scale.x / old_scale.x
+				image_rect.position = mouse_position - (mouse_position - image_rect.position) * scale_ratio
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+				# Zoom out from the cursor
+				var mouse_position: Vector2 = get_global_mouse_position()
+				var old_scale = image_rect.scale
+				image_rect.scale *= 0.9
+				var scale_ratio = image_rect.scale.x / old_scale.x
+				image_rect.position = mouse_position - (mouse_position - image_rect.position) * scale_ratio
 
 # Called when the user selects their file
 func _on_file_selected(path: String) -> void:
-	var instructions: RichTextLabel = $LeftEdge/Instructions
+	var text1: RichTextLabel = $Text1
+	var text2: RichTextLabel = $LeftEdge/Text2
 	
 	# Get the image from the path
 	var image = Image.new()
@@ -82,15 +93,17 @@ func _on_file_selected(path: String) -> void:
 		# Show the image on the UI
 		var texture = ImageTexture.create_from_image(image)
 		image_rect.texture = texture
+		is_image = true
 		
 		# Show instructions
-		instructions.text = "Please move the desired part of the image into the circle and then press \"Confirm\""
+		text2.text = "Please move the desired part of the image into the circle and then press \"Confirm\""
+		text1.visible = false
 		
 		# Show the confirm button and selection circle
 		confirm_button.visible = true
 		selection_circle.visible = true
 	else:
-		instructions.text = "Error loading image. Please try again."
+		text2.text = "Error: file is not a valid image type. Please try again."
 		
 		# Hide the confirm button and selection circle
 		confirm_button.visible = false
@@ -108,11 +121,22 @@ func _on_confirm_pressed() -> void:
 	var image: Image = image_rect.texture.get_image()
 	
 	# Get the crop rectangle
-	var rect: CollisionShape2D = $ImageArea/ImageAreaBounds
-	var rect_size = Vector2i(rect.shape.size)
-	var rect_pos = Vector2i(rect.global_position - rect.shape.size / 2)
-
+	var rect: TextureRect = $SelectionCircle
+	
+	var ratio: float = image.get_width() / image_rect.get_global_rect().size.x
+	var rect_pos = Vector2i((rect.global_position - image_rect.global_position) * ratio)
+	
+	# Make sure the crop rectangle is a square
+	var rect_size = Vector2i(rect.size * ratio)
+	if rect_size.x > rect_size.y:
+		rect_size.x = rect_size.y
+	elif rect_size.y > rect_size.x:
+		rect_size.y = rect_size.x
+	
 	var crop_rect: Rect2i = Rect2i(rect_pos, rect_size)
+	
+	print("Ratio: ", ratio, " rect_size: ", rect_size, " rect_pos: ", rect_pos)
+	print("Image Size: ", image_rect.get_global_rect().size, " Default Image Size: ", image.get_size())
 	
 	# Crop the image
 	var cropped_image: Image = ImageEditor.crop_image(image, crop_rect)
